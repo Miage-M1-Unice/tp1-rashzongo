@@ -1,4 +1,4 @@
-package fr.unice.miage.progavancee.tp1;
+package fr.unice.miage.progavancee.tp1.exercice1.a;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -7,11 +7,11 @@ import java.io.FileFilter;
  *
  * @author Chido
  */
-public class Exercice1Filter1 implements FileFilter {
+public class ListFilesFilter1 implements FileFilter {
     
     private String exp;
 
-    public Exercice1Filter1 (String exp) {
+    public ListFilesFilter1 (String exp) {
         this.exp = exp;
     }
 

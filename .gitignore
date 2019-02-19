@@ -4,3 +4,4 @@
 *.jar
 
 *.class
+/tp1/src/main/java/fr/unice/miage/progavancee/tp1/NewMain.java
