@@ -18,7 +18,7 @@ public class Main {
         
         int a = 5;
         Class cl = int.class;
-        System.out.println(cl);
+        //System.out.println(cl);
         
         //System.out.println(new GenericToString().toString(2, 1));
           
