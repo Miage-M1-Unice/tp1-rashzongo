@@ -106,6 +106,7 @@ public class AnalyseurDeClasse {
         Method methods[] = cl.getDeclaredMethods();
         for(Method m : methods) {
             System.out.print(Modifier.toString(m.getModifiers()) + " ");
+            System.out.print(m.getReturnType().getName() + " ");
             System.out.print(m.getName());
             System.out.print("(");
             Type params[] = m.getParameterTypes();
