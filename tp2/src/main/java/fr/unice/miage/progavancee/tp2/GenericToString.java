@@ -17,38 +17,26 @@ public class GenericToString {
     }
     
     
-    public String toString(Object obj, int prof) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public String toString(Object obj, int prof) 
+            throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        
         Class cl = obj.getClass();
         StringBuilder res = new StringBuilder();
-        //if (cl.isPrimitive()) {
-            //res.append("=").append(obj);
-        //}
-        //else {
+        if (cl.isArray()) {
+            //res.append("=").append(toString(obj, prof));
+        }
+        else {
             res.append(obj.getClass().getName()).append("[");
             res.append(this.attributeslisting(cl.getDeclaredFields(), cl, obj, prof));
             res.append(this.attributeslisting(cl.getSuperclass().getDeclaredFields(), cl.getSuperclass(), obj, prof));
             res.append("]");
-        //}
+        }
         return res.toString();
     }
     
-    //listing attr class ensuite super classe
-    
-    /**
-     *
-     * @param classe
-     * @return
-     */
-    public List<Field> getAllFields(Class classe) {
-        ArrayList<Field> res  = new ArrayList();
-        res.addAll(Arrays.asList(classe.getDeclaredFields()));
-        if(classe.getSuperclass() != Object.class && classe.getSuperclass() != null) {
-            res.addAll(Arrays.asList(classe.getSuperclass().getDeclaredFields()));
-        }
-        return res;
-    }
-    
-    String attributeslisting(Field attrs[], Class cl, Object obj, int prof) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    String attributeslisting(Field attrs[], Class cl, Object obj, int prof) 
+            throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        
         StringBuilder res = new StringBuilder();
         for(Field f : attrs) {
                 Field field = cl.getDeclaredField(f.getName());
@@ -62,9 +50,15 @@ public class GenericToString {
                 else if(f.getType().isArray()) {
                     int size = Array.getLength(field.get(obj));
                     res.append("{");
+                    //System.out.println(field.get(obj).getClass().getComponentType());
                     for(int i = 0; i < size; i++){
-                        //res.append(toString(Array.get(field.get(obj), i)));
-                        res.append(Array.get(field.get(obj), i)).append(", ");
+                        if(field.get(obj).getClass().getComponentType().isPrimitive()) {
+                            res.append(Array.get(field.get(obj), i));
+                        }
+                        else {
+                            res.append(toString(Array.get(field.get(obj), i), (prof-1)));
+                        }
+                        res.append(", ");
                     }
                     res.append("}");
                 }
